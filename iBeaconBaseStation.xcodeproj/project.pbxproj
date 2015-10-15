@@ -16,6 +16,8 @@
 		B71A92EF1BCDF07C00C811AC /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A92EE1BCDF07C00C811AC /* ConfigViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		B71A92F11BCDF35F00C811AC /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71A92F01BCDF35F00C811AC /* CoreBluetooth.framework */; };
 		B71A92F31BCDF37000C811AC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71A92F21BCDF37000C811AC /* CoreLocation.framework */; };
+		B7E06F731BCF609F00027C51 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E06F711BCF609F00027C51 /* ContentViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		B7E06F741BCF609F00027C51 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E06F721BCF609F00027C51 /* ContentViewController.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		B71A92EE1BCDF07C00C811AC /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		B71A92F01BCDF35F00C811AC /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B71A92F21BCDF37000C811AC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B7E06F711BCF609F00027C51 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		B7E06F721BCF609F00027C51 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 				B71A92E11BCDEEF300C811AC /* Assets.xcassets */,
 				B71A92E31BCDEEF300C811AC /* LaunchScreen.storyboard */,
 				B71A92E61BCDEEF300C811AC /* Info.plist */,
+				B7E06F711BCF609F00027C51 /* ContentViewController.swift */,
+				B7E06F721BCF609F00027C51 /* ContentViewController.xib */,
 			);
 			path = iBeaconBaseStation;
 			sourceTree = "<group>";
@@ -136,6 +142,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E06F741BCF609F00027C51 /* ContentViewController.xib in Resources */,
 				B71A92E51BCDEEF300C811AC /* LaunchScreen.storyboard in Resources */,
 				B71A92E21BCDEEF300C811AC /* Assets.xcassets in Resources */,
 				B71A92E01BCDEEF300C811AC /* Main.storyboard in Resources */,
@@ -149,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E06F731BCF609F00027C51 /* ContentViewController.swift in Sources */,
 				B71A92DD1BCDEEF300C811AC /* ViewController.swift in Sources */,
 				B71A92ED1BCDF06800C811AC /* TrackViewController.swift in Sources */,
 				B71A92EF1BCDF07C00C811AC /* ConfigViewController.swift in Sources */,
@@ -302,6 +310,7 @@
 				B71A92EB1BCDEEF300C811AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

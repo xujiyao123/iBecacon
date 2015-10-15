@@ -11,22 +11,19 @@ import UIKit
 import CoreBluetooth
 import CoreLocation
 
-class TrackViewController: UIViewController ,CLLocationManagerDelegate {
+class TrackViewController: UIViewController ,CLLocationManagerDelegate ,UITableViewDataSource ,UITableViewDelegate {
 
-    @IBOutlet weak var beaconLable: UILabel!
-    @IBOutlet weak var uuidLabel: UILabel!
-    @IBOutlet weak var majorLabel: UILabel!
-    @IBOutlet weak var minorLabel: UILabel!
-    @IBOutlet weak var accuracyLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var rssiLabel: UILabel!
+ 
     
     
     var beconRegion : CLBeaconRegion!
     
-    var beaconArr : NSArray!
+    var beaconArr = [CLBeacon]()
     
     var trackLocationManager : CLLocationManager!
+    
+    
+    var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,17 +32,40 @@ class TrackViewController: UIViewController ,CLLocationManagerDelegate {
        self.title = "Track"
         
         
-        self.trackLocationManager = CLLocationManager()
-        self.trackLocationManager.delegate = self
+        tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height - 64))
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.view.addSubview(tableView)
+        
 
-        initRegion()
                // Do any additional setup after loading the view.
     }
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        
+        switch motion {
+        case .MotionShake :
+//            let alert = UIAlertController(title: "恭喜你，成功了！", message: nil, preferredStyle: .Alert)
+//            
+//            alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+//            
+//            self.presentViewController(alert, animated: true, completion: nil)
+            
+            self.trackLocationManager = CLLocationManager()
+            self.trackLocationManager.delegate = self
+            
+            initRegion()
+            
+        default:
+            break
+        }
+    }
+
     
 
  
     func initRegion() {
-        let uuid = NSUUID(UUIDString: "DD7D9825-5E2F-4ED6-BB98-2768505ACA20")
+        let uuid = NSUUID(UUIDString: "FDA50693-A4E2-4FB1-AFCF-C6EB07647825")
         
         self.beconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "xujiyao")
         
@@ -76,7 +96,7 @@ class TrackViewController: UIViewController ,CLLocationManagerDelegate {
     }
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         self.trackLocationManager.stopRangingBeaconsInRegion(self.beconRegion)
-        self.beaconLable.text = "NO"
+//        self.beaconLable.text = "NO"
         
     }
     
@@ -90,33 +110,18 @@ class TrackViewController: UIViewController ,CLLocationManagerDelegate {
             return
         }
         
-        let beacon : CLBeacon = beacons[beacons.count - 1]
+        self.beaconArr = beacons 
         
-        self.beaconLable.text = "YES"
-        self.uuidLabel.text = beacon.proximityUUID != "" ? beacon.proximityUUID.UUIDString : ""
+        self.tableView.reloadData()
         
-        self.majorLabel.text = beacon.major.stringValue != "" ? beacon.major.stringValue : ""
-        self.minorLabel.text = beacon.minor.stringValue != "" ? beacon.minor.stringValue : ""
+     //   self.trackLocationManager.stopRangingBeaconsInRegion(self.beconRegion)
         
-        self.accuracyLabel.text = String(beacon.accuracy) != "" ? String(beacon.accuracy) : ""
-        
-       
-        
-        switch(beacon.proximity) {
-        case .Unknown:
-            self.distanceLabel.text = "unknown"
-        case .Immediate:
-            self.distanceLabel.text = "immediate"
-        case .Near:
-            self.distanceLabel.text = "near"
-        case .Far:
-            self.distanceLabel.text = "far"
-        }
-        
-        self.rssiLabel.text = beacon.rssi.description != "" ? beacon.rssi.description : ""
+
         
         
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -124,6 +129,35 @@ class TrackViewController: UIViewController ,CLLocationManagerDelegate {
     }
     
 
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if beaconArr.count == 0 {
+            return 0
+        }
+        return beaconArr.count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        
+        cell.textLabel?.text = beaconArr[indexPath.row].proximityUUID.UUIDString
+        
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let vc = ContentViewController()
+        
+        vc.beacon = beaconArr[indexPath.row] 
+        
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+        
+    }
     /*
     // MARK: - Navigation
 
